@@ -6,6 +6,10 @@ extends PhysicsBody2D
 @export var jumping_gravity := 0x20
 @export var jump_speed := 0x500
 
+@export var max_walking_speed := 0x32c
+@export var walking_accel := 0x55
+@export var friction := 0x33
+
 var velocity: Vector2
 var is_on_ground: bool
 
@@ -20,5 +24,15 @@ func _physics_process(delta: float):
 	if is_on_ground && Input.is_action_just_pressed("jump"):
 		velocity.y = jump_speed
 	
+	if velocity.x > max_walking_speed:
+		velocity.x = max_walking_speed
+	if is_on_ground && (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
+		velocity.x += Input.get_axis("left", "right") * walking_accel
+	if is_on_ground:
+		velocity.x -= clamp(velocity.x, 0, friction)
+	
 	var vertical_collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
 	is_on_ground = velocity.y < 0 && vertical_collision != null
+	# TODO: 1-pixel grace distance thing
+	
+	var horizontal_collision := move_and_collide(Vector2(velocity.x, 0) / 0x200)
