@@ -24,12 +24,11 @@ func _physics_process(delta: float):
 	if is_on_ground && Input.is_action_just_pressed("jump"):
 		velocity.y = jump_speed
 	
-	if velocity.x > max_walking_speed:
-		velocity.x = max_walking_speed
-	if is_on_ground && (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
-		velocity.x += Input.get_axis("left", "right") * walking_accel
+	velocity.x = clamp(velocity.x, -max_walking_speed, max_walking_speed)
 	if is_on_ground:
-		velocity.x -= clamp(velocity.x, 0, friction)
+		if  Input.is_action_pressed("left") || Input.is_action_pressed("right"):
+			velocity.x += Input.get_axis("left", "right") * walking_accel
+		velocity.x -= clamp(velocity.x, -friction, friction)
 	
 	var vertical_collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
 	is_on_ground = velocity.y < 0 && vertical_collision != null
