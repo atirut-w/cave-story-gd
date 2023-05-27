@@ -13,3 +13,10 @@ config_version=5
 config/name="Cave Story"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=240
+window/size/mode=3
+window/stretch/mode="canvas_items"
