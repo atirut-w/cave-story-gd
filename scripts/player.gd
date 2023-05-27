@@ -39,7 +39,11 @@ func _physics_process(delta: float):
 			velocity.x += air_control
 	
 	var vertical_collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
-	is_on_ground = velocity.y < 0 && vertical_collision != null
-	# TODO: 1-pixel grace distance thing
+	if vertical_collision != null:
+		is_on_ground = velocity.y < 0
+		velocity.y = 0
+		# TODO: 1-pixel grace distance thing
+	else:
+		is_on_ground = false
 	
 	var horizontal_collision := move_and_collide(Vector2(velocity.x, 0) / 0x200)
