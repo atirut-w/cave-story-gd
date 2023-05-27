@@ -27,10 +27,17 @@ func _physics_process(delta: float):
 	
 	velocity.x = clamp(velocity.x, -max_walking_speed, max_walking_speed)
 	if is_on_ground:
-		velocity.x += Input.get_axis("left", "right") * walking_accel
+		if Input.is_action_pressed("left"):
+			velocity.x -= walking_accel
+		elif Input.is_action_pressed("right"):
+			velocity.x += walking_accel
+		
 		velocity.x -= clamp(velocity.x, -friction, friction)
 	else:
-		velocity.x += Input.get_axis("left", "right") * air_control
+		if Input.is_action_pressed("left"):
+			velocity.x -= air_control
+		elif Input.is_action_pressed("right"):
+			velocity.x += air_control
 	
 	var vertical_collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
 	is_on_ground = velocity.y < 0 && vertical_collision != null
