@@ -16,8 +16,7 @@ var is_on_ground: bool
 
 
 func _physics_process(delta: float):
-	if velocity.y > max_falling_speed:
-		velocity.y = max_falling_speed
+	velocity.y = clamp(velocity.y, -max_falling_speed, max_falling_speed)
 	if !Input.is_action_pressed("jump") || (velocity.y < 0):
 		velocity.y -= gravity
 	if Input.is_action_pressed("jump") && (velocity.y >= 0):
