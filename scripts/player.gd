@@ -20,4 +20,5 @@ func _physics_process(delta: float):
 	if is_on_ground && Input.is_action_just_pressed("jump"):
 		velocity.y = jump_speed
 	
-	var collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
+	var vertical_collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
+	is_on_ground = velocity.y < 0 && vertical_collision != null
