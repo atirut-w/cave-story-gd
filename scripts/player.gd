@@ -8,6 +8,7 @@ extends PhysicsBody2D
 
 @export var max_walking_speed := 0x32c
 @export var walking_accel := 0x55
+@export var air_control := 0x20
 @export var friction := 0x33
 
 var velocity: Vector2
@@ -28,6 +29,8 @@ func _physics_process(delta: float):
 	if is_on_ground:
 		velocity.x += Input.get_axis("left", "right") * walking_accel
 		velocity.x -= clamp(velocity.x, -friction, friction)
+	else:
+		velocity.x += Input.get_axis("left", "right") * air_control
 	
 	var vertical_collision := move_and_collide(Vector2(0, -velocity.y) / 0x200)
 	is_on_ground = velocity.y < 0 && vertical_collision != null
