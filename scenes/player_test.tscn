@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://vcd7l5uksmgl"]
+
+[ext_resource type="TileSet" uid="uid://cqswwa3gysknn" path="res://tilesets/cave.tres" id="1_jfvet"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="2_2y2l4"]
+[ext_resource type="Texture2D" uid="uid://ygyuk0l0ryck" path="res://sprites/quote.png" id="2_ly14s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bep20"]
+size = Vector2(14, 15)
+
+[node name="player_test" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+tile_set = ExtResource("1_jfvet")
+format = 2
+layer_0/tile_data = PackedInt32Array(65522, 65537, 0, 131058, 65537, 0, 65523, 65537, 0, 131059, 65537, 0, 65524, 65537, 0, 131060, 65537, 0, 65525, 65537, 0, 131061, 65537, 0, 65526, 65537, 0, 131062, 65537, 0, 65527, 65537, 0, 131063, 65537, 0, 65528, 65537, 0, 131064, 65537, 0, 65529, 65537, 0, 131065, 65537, 0, 65530, 65537, 0, 131066, 65537, 0, 65531, 65537, 0, 131067, 65537, 0, 65532, 65537, 0, 131068, 65537, 0, 65533, 65537, 0, 131069, 65537, 0, 65534, 65537, 0, 131070, 65537, 0, 65535, 65537, 0, 131071, 65537, 0, 0, 65537, 0, 65536, 65537, 0, 1, 65537, 0, 65537, 65537, 0, 2, 65537, 0, 65538, 65537, 0, 3, 65537, 0, 65539, 65537, 0, 4, 65537, 0, 65540, 65537, 0, 5, 65537, 0, 65541, 65537, 0, 6, 65537, 0, 65542, 65537, 0, 7, 65537, 0, 65543, 65537, 0, 8, 65537, 0, 65544, 65537, 0, 9, 65537, 0, 65545, 65537, 0, 10, 65537, 0, 65546, 65537, 0, 11, 65537, 0, 65547, 65537, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(0, -88)
+script = ExtResource("2_2y2l4")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("2_ly14s")
+hframes = 11
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_bep20")
