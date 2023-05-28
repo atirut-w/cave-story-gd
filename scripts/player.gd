@@ -47,3 +47,5 @@ func _physics_process(delta: float):
 		is_on_ground = false
 	
 	var horizontal_collision := move_and_collide(Vector2(velocity.x, 0) / 0x200)
+	if horizontal_collision != null:
+		pass
