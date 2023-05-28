@@ -17,4 +17,8 @@ func _physics_process(delta: float) -> void:
 	position.x += focus.x / focus_speed
 	position.y += focus.y / focus_speed
 	
-	# TODO: Soft & hard quakes
+	if soft_quake:
+		position += Vector2(randi_range(-1, 1), randi_range(-1, 1))
+	if hard_quake:
+		position.x += randi_range(-5, 5)
+		position.y += randi_range(-3, 3)
