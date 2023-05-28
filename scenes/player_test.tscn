@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://vcd7l5uksmgl"]
 
 [ext_resource type="TileSet" uid="uid://cqswwa3gysknn" path="res://tilesets/cave.tres" id="1_jfvet"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="2_2y2l4"]
+[ext_resource type="Script" path="res://scripts/player_controller.gd" id="2_bp662"]
 [ext_resource type="Texture2D" uid="uid://ygyuk0l0ryck" path="res://sprites/quote.png" id="2_ly14s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bep20"]
@@ -18,7 +18,7 @@ layer_0/tile_data = PackedInt32Array(65522, 65537, 0, 131058, 65537, 0, 65523, 6
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("2_2y2l4")
+script = ExtResource("2_bp662")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture_filter = 1
