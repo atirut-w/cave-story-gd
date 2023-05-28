@@ -48,4 +48,5 @@ func _physics_process(delta: float):
 	
 	var horizontal_collision := move_and_collide(Vector2(velocity.x, 0) / 0x200)
 	if horizontal_collision != null:
-		pass
+		# TODO: Slopes
+		velocity.x = 0
