@@ -32,7 +32,10 @@ func _physics_process(delta: float):
 		if Input.is_action_pressed("right") && velocity.x < max_run_speed:
 			velocity.x += ground_acceleration
 		
-		velocity.x -= clamp(velocity.x, -friction, friction)
+		if abs(velocity.x) > friction:
+			velocity.x -= clamp(velocity.x, -friction, friction)
+		else:
+			velocity.x = 0
 	else:
 		if Input.is_action_pressed("left") && velocity.x > -max_run_speed:
 			velocity.x -= air_acceleration
