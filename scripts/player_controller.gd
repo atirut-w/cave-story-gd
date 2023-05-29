@@ -2,15 +2,15 @@ class_name PlayerController
 extends PhysicsBody2D
 
 
-@export var max_falling_speed := 2.99804688
-@export var gravity := 0.15625
-@export var jumping_gravity := 0.0625
+@export var max_speed := 2.998046875
+@export var max_run_speed := 1.5859375
+@export var ground_acceleration := 0.166015625
+@export var air_acceleration :=  0.0625
 @export var jump_speed := 2.5
-
-@export var max_walking_speed := 1.5859375
-@export var walking_accel := 0.166015625
-@export var air_control := 0.0625
+@export var fall_gravity := 0.15625
+@export var jump_gravity := 0.0625
 @export var friction := 0.099609375
+
 
 var velocity: Vector2
 var is_on_ground: bool
@@ -26,31 +26,35 @@ enum Direction {
 
 
 func _physics_process(delta: float):
-	velocity.y = clamp(velocity.y, -max_falling_speed, max_falling_speed)
-	if !Input.is_action_pressed("jump") || (velocity.y < 0):
-		velocity.y -= gravity
-	if Input.is_action_pressed("jump") && (velocity.y >= 0):
-		velocity.y -= jumping_gravity
-	if is_on_ground && Input.is_action_just_pressed("jump"):
-		velocity.y = jump_speed
-	
-	velocity.x = clamp(velocity.x, -max_walking_speed, max_walking_speed)
 	if is_on_ground:
-		if Input.is_action_pressed("left"):
-			velocity.x -= walking_accel
-		elif Input.is_action_pressed("right"):
-			velocity.x += walking_accel
+		if Input.is_action_pressed("left") && velocity.x > -max_run_speed:
+			velocity.x -= ground_acceleration
+		if Input.is_action_pressed("right") && velocity.x < max_run_speed:
+			velocity.x += ground_acceleration
 		
 		velocity.x -= clamp(velocity.x, -friction, friction)
 	else:
-		if Input.is_action_pressed("left"):
-			velocity.x -= air_control
-		elif Input.is_action_pressed("right"):
-			velocity.x += air_control
+		if Input.is_action_pressed("left") && velocity.x > -max_run_speed:
+			velocity.x -= air_acceleration
+		if Input.is_action_pressed("right") && velocity.x < max_run_speed:
+			velocity.x += air_acceleration
 	
-	var vertical_collision := move_and_collide(Vector2(0, -velocity.y))
+	if Input.is_action_just_pressed("jump") && is_on_ground:
+		velocity.y = -jump_speed
+	
+	if velocity.y < 0 && Input.is_action_pressed("jump"):
+		velocity.y += jump_gravity
+	else:
+		velocity.y += fall_gravity
+	
+	velocity = velocity.clamp(
+		Vector2(-max_speed, -max_speed),
+		Vector2(max_speed, max_speed)
+	)
+	
+	var vertical_collision := move_and_collide(Vector2(0, velocity.y))
 	if vertical_collision != null:
-		is_on_ground = velocity.y < 0
+		is_on_ground = velocity.y > 0
 		velocity.y = 0
 		# TODO: 1-pixel grace distance thing
 	else:
