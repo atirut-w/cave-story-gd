@@ -7,13 +7,24 @@ extends Camera2D
 @export var hard_quake := false
 
 var _target_position: Vector2
+var _offset: Vector2
 
 
 func _physics_process(delta: float) -> void:
 	if target != null:
 		_target_position = target.position
 	
-	var focus := _target_position - position
+	if target is PlayerController:
+		if target.direction == PlayerController.Direction.LEFT:
+			_offset.x -= 0x200
+		else:
+			_offset.x += 0x200
+		
+		_offset.x = clamp(_offset.x, -0x8000, 0x8000)
+	else:
+		_offset = Vector2()
+	
+	var focus := (_target_position + (_offset / 0x200)) - position
 	position.x += focus.x / focus_speed
 	position.y += focus.y / focus_speed
 	
