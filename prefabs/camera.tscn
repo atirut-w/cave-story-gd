@@ -2,6 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_qoct4"]
 
-[node name="camera" type="Camera2D" node_paths=PackedStringArray("target")]
+[node name="camera" type="Camera2D"]
 script = ExtResource("1_qoct4")
-target = NodePath("../CharacterBody2D")
