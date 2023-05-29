@@ -20,7 +20,17 @@ func _physics_process(delta: float) -> void:
 		else:
 			_offset.x += 1
 		
-		_offset.x = clamp(_offset.x, -64, 64)
+		if Input.is_action_pressed("up"):
+			_offset.y -= 1
+		elif Input.is_action_pressed("down"):
+			_offset.y += 1
+		else:
+			_offset.y -= clamp(_offset.y, -1, 1)
+		
+		_offset = _offset.clamp(
+			Vector2(-64, -64),
+			Vector2(64, 64)
+		)
 	else:
 		_offset = Vector2()
 	
