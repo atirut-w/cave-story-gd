@@ -11,13 +11,15 @@ extends PhysicsBody2D
 @export var jump_gravity := 0.0625
 @export var friction := 0.099609375
 
+@onready var sprite := $Sprite2D
+
 
 var velocity: Vector2
 var is_on_ground: bool
 
 var direction: Direction:
 	get:
-		return ($Sprite2D as Sprite2D).frame_coords.y & 1
+		return sprite.frame_coords.y & 1
 
 enum Direction {
 	LEFT,
@@ -72,6 +74,6 @@ func _physics_process(delta: float):
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.is_action_pressed("left"):
-			($Sprite2D as Sprite2D).frame_coords.y &= 2
+			sprite.frame_coords.y &= 2
 		if event.is_action_pressed("right"):
-			($Sprite2D as Sprite2D).frame_coords.y |= 1
+			sprite.frame_coords.y |= 1
