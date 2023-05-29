@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2kx3xvaxxy3q"]
+
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="1_qoct4"]
+
+[node name="camera" type="Camera2D" node_paths=PackedStringArray("target")]
+script = ExtResource("1_qoct4")
+target = NodePath("../CharacterBody2D")
