@@ -15,6 +15,15 @@ extends PhysicsBody2D
 var velocity: Vector2
 var is_on_ground: bool
 
+var direction: Direction:
+	get:
+		return ($Sprite2D as Sprite2D).frame_coords.y & 1
+
+enum Direction {
+	LEFT,
+	RIGHT
+}
+
 
 func _physics_process(delta: float):
 	velocity.y = clamp(velocity.y, -max_falling_speed, max_falling_speed)
@@ -51,3 +60,11 @@ func _physics_process(delta: float):
 	if horizontal_collision != null:
 		# TODO: Slopes
 		velocity.x = 0
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_action_pressed("left"):
+			($Sprite2D as Sprite2D).frame_coords.y &= 2
+		if event.is_action_pressed("right"):
+			($Sprite2D as Sprite2D).frame_coords.y |= 1
