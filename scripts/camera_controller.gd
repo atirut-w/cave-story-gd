@@ -16,15 +16,15 @@ func _physics_process(delta: float) -> void:
 	
 	if target is PlayerController:
 		if target.direction == PlayerController.Direction.LEFT:
-			_offset.x -= 0x200
+			_offset.x -= 1
 		else:
-			_offset.x += 0x200
+			_offset.x += 1
 		
-		_offset.x = clamp(_offset.x, -0x8000, 0x8000)
+		_offset.x = clamp(_offset.x, -64, 64)
 	else:
 		_offset = Vector2()
 	
-	var focus := (_target_position + (_offset / 0x200)) - position
+	var focus := (_target_position + _offset) - position
 	position.x += focus.x / focus_speed
 	position.y += focus.y / focus_speed
 	
