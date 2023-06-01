@@ -1,5 +1,5 @@
 class_name PlayerController
-extends PhysicsBody2D
+extends BaseCharacter
 
 
 @export var max_speed := 2.998046875
@@ -11,22 +11,8 @@ extends PhysicsBody2D
 @export var jump_gravity := 0.0625
 @export var friction := 0.099609375
 
-@onready var sprite := $Sprite2D
-
-
 var velocity: Vector2
 var is_on_ground: bool
-
-var direction: Direction:
-	get:
-		return sprite.frame_coords.y & 1
-	set(value):
-		sprite.frame_coords.y = (sprite.frame_coords.y & 2) | value
-
-enum Direction {
-	LEFT,
-	RIGHT
-}
 
 
 func _physics_process(delta: float):
