@@ -15,3 +15,4 @@ layer_0/tile_data = PackedInt32Array(65533, 65537, 0, 131069, 65537, 0, 65534, 6
 target = NodePath("../player")
 
 [node name="player" parent="." instance=ExtResource("3_dtepl")]
+position = Vector2(0, -8)

@@ -10,6 +10,7 @@
 target = NodePath("../player")
 
 [node name="player" parent="." instance=ExtResource("2_0ynnh")]
+position = Vector2(0, -8)
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
